@@ -12,9 +12,9 @@ Repo links are placeholders — fill in as repos are created/linked. Private rep
 
 | Project | Repo | Status |
 |---|---|---|
-| algoland (v3-1, ML pipeline) | `<private repo link>` | active — data ingest blocked (Dukascopy download errors) |
-| PropmachineV3 | `<private repo link>` | observation phase (NAS100 CFD, Axi MT5) |
-| gerald_trades | `<private repo link>` | live (Tradovate prop via TradersPost) — change freeze except explicit instruction |
+| algoland (v3-1) | `<private repo link>` | active — data backfill grinding overnight (source host flapping); pipeline handoff gated pending integrity pass; see repo STATE.md |
+| PropmachineV3 | `<private repo link>` | observation phase |
+| gerald_trades | `<private repo link>` | live — change freeze except explicit instruction |
 | LevelFilterFramework.pine | `<private repo link>` | active — confirmed findings only |
 
 ## Content / Baseline Social
@@ -30,7 +30,7 @@ Repo links are placeholders — fill in as repos are created/linked. Private rep
 
 | Project | Repo | Status |
 |---|---|---|
-| Span (budgeting PWA) | `<private repo link>` | pre-release — review pass in progress |
+| Span (budgeting PWA) | `<private repo link>` | pre-release — plan drafted in Claude Code; independent review pending |
 | Housing advocacy PWA (Kootenay Commons / Home Ground) | `<private repo link>` | parked — design drafted |
 
 ## Other
