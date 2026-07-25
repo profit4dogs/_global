@@ -1,6 +1,6 @@
 ---
 status: active
-updated: 2026-07-23
+updated: 2026-07-25
 ---
 
 # PREFERENCES (operator: Liam)
@@ -21,6 +21,7 @@ Working-style contract. All agents load this.
 - Exploration findings are hypotheses, not conclusions. In-sample and out-of-sample stay separated. Walk-forward before belief.
 - Promote fixes as complete units, not piecemeal. A spec marked `locked` is implemented as written.
 - Prefer boring, verifiable steps over clever, opaque ones.
+- Never work on `main` — fresh work gets a fresh branch off an up-to-date `main`; if `main` is behind, ask before branching. Full rule: `PRACTICES.md` § Branch discipline.
 - Second occurrence of a failure class triggers a durable prevention, at the strongest available tier, before the work continues. Full rule: `PRACTICES.md` § Recurring-failure ratchet.
 
 ## Environment
