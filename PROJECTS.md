@@ -6,7 +6,7 @@ updated: 2026-07-23
 # PROJECTS
 
 Registry of active projects. One line of truth each; details live in each repo's STATE.md.
-Local clones live under `E:\projects` (`{PROJECTS_ROOT}` — see README).
+Clones migrate to `E:\projects` (`{PROJECTS_ROOT}` — see README) as each project is next touched; some are still under C:.
 Repo links are placeholders — fill in as repos are created/linked. Private repos stay private; this file names them but carries no sensitive detail.
 
 ## Trading

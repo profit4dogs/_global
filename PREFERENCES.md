@@ -26,7 +26,7 @@ Working-style contract. All agents load this.
 ## Environment
 
 - OS: Windows. Primary: Ryzen 5 5500 / RX 6600 / 32GB. Secondary: i7 / GTX 1080 laptop.
-- Local project clones live under `E:\projects` (`{PROJECTS_ROOT}`). The `_global` clone stays at `C:\_global`.
+- New and migrated project clones go under `E:\projects` (`{PROJECTS_ROOT}`); older clones still under C: move as they are touched. Never assume either root — check. The `_global` clone stays at `C:\_global`.
 - Languages: Python (uv), Pine Script v6, TypeScript/Next.js.
 - Local LLM: Ollama pinned at v0.22.1 (RX 6600 Vulkan stability). Do not upgrade without explicit approval.
 - `DRY_RUN=true` is the default posture for anything that publishes or trades. Going live is always an explicit human decision.

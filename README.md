@@ -14,7 +14,7 @@ This repo is the **contract layer**, not the brain. Per-project state and decisi
 
 `{GLOBAL_ROOT}` = the fixed local clone path on the machine (set once, referenced everywhere). Convention: `C:\_global`.
 
-`{PROJECTS_ROOT}` = the fixed local root for project clones. Convention: `E:\projects` (moved from C: for storage, 2026-07-23). `_global` itself stays at `{GLOBAL_ROOT}`.
+`{PROJECTS_ROOT}` = the local root for project clones. Convention: `E:\projects` (C: was outgrowing its storage). New and migrated clones go there; older clones still under C: move as they are touched, so both roots are live during the migration and a path is never assumed. `_global` itself stays at `{GLOBAL_ROOT}`.
 
 ## Repo map
 
