@@ -1,11 +1,12 @@
 ---
 status: active
-updated: 2026-07-12
+updated: 2026-07-23
 ---
 
 # PROJECTS
 
 Registry of active projects. One line of truth each; details live in each repo's STATE.md.
+Local clones live under `E:\projects` (`{PROJECTS_ROOT}` — see README).
 Repo links are placeholders — fill in as repos are created/linked. Private repos stay private; this file names them but carries no sensitive detail.
 
 ## Trading
@@ -32,6 +33,7 @@ Repo links are placeholders — fill in as repos are created/linked. Private rep
 | Project | Repo | Status |
 |---|---|---|
 | Span (budgeting PWA) | `<private repo link>` | pre-release — work orders 1+2 complete (blockers cleared, nav/Spending/funding shipped), smoke test in progress. Live on getspan.vercel.app. Remaining: default-budget change, guided onboarding spec, Canva icon assets, RevenueCat device test (needs macOS) |
+| vibecodetutor | `<private repo link>` | active — monorepo scaffolded 2026-07-24 on branch `scaffold` (local: `E:\projects\vibecodetutor_app`), gates green; next: §14 vertical slice. See repo STATE.md |
 | Housing advocacy PWA (Kootenay Commons / Home Ground) | `<private repo link>` | parked — design drafted |
 
 ## Sites / Other

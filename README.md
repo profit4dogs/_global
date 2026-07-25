@@ -14,10 +14,13 @@ This repo is the **contract layer**, not the brain. Per-project state and decisi
 
 `{GLOBAL_ROOT}` = the fixed local clone path on the machine (set once, referenced everywhere). Convention: `C:\_global`.
 
+`{PROJECTS_ROOT}` = the fixed local root for project clones. Convention: `E:\projects` (moved from C: for storage, 2026-07-23). `_global` itself stays at `{GLOBAL_ROOT}`.
+
 ## Repo map
 
 - `CONVENTIONS.md` — rules of the vault. Read this before writing anything.
 - `PREFERENCES.md` — operator working style. Loaded by all agents.
+- `PRACTICES.md` — engineering practice rules across all projects (e.g. the recurring-failure ratchet).
 - `PROJECTS.md` — registry of all active projects, one line each, with repo links.
 - `agents/` — one contract file per agent.
 - `templates/` — canonical templates for per-project docs (`STATE.md`, `DECISIONS.md`, `SPEC.md`).

@@ -1,6 +1,6 @@
 ---
 status: active
-updated: 2026-07-11
+updated: 2026-07-23
 ---
 
 # PREFERENCES (operator: Liam)
@@ -21,10 +21,12 @@ Working-style contract. All agents load this.
 - Exploration findings are hypotheses, not conclusions. In-sample and out-of-sample stay separated. Walk-forward before belief.
 - Promote fixes as complete units, not piecemeal. A spec marked `locked` is implemented as written.
 - Prefer boring, verifiable steps over clever, opaque ones.
+- Second occurrence of a failure class triggers a durable prevention, at the strongest available tier, before the work continues. Full rule: `PRACTICES.md` § Recurring-failure ratchet.
 
 ## Environment
 
 - OS: Windows. Primary: Ryzen 5 5500 / RX 6600 / 32GB. Secondary: i7 / GTX 1080 laptop.
+- Local project clones live under `E:\projects` (`{PROJECTS_ROOT}`). The `_global` clone stays at `C:\_global`.
 - Languages: Python (uv), Pine Script v6, TypeScript/Next.js.
 - Local LLM: Ollama pinned at v0.22.1 (RX 6600 Vulkan stability). Do not upgrade without explicit approval.
 - `DRY_RUN=true` is the default posture for anything that publishes or trades. Going live is always an explicit human decision.
