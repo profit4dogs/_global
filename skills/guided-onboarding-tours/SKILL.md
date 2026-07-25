@@ -152,6 +152,52 @@ point; the words describing it must not bury it. Pin the tooltip to clear space
 (e.g. onto the action button's container) rather than letting it default on top of
 its own target.
 
+**Existence is not visibility — detect occlusion and suspend.** The rule above
+assumes the tour is the only thing on top. It won't be. A tour overlay normally
+lives in a top-level portal *precisely* so it can spotlight anything, which means
+nothing structurally stops it from painting over a surface the user opened
+afterwards. And an element sealed behind a modal still returns a perfectly valid
+bounding rect, so an anchor resolved by "selector matches + measure the rect"
+keeps drawing at coordinates the user can no longer see: a detached outline
+floating on unrelated UI.
+
+So the trigger is **"the target is no longer on the topmost surface"**, not
+"the route changed" — the user buries a target by opening a sheet without
+navigating anywhere, and route-only detection misses that case entirely. When it
+fires, hide the overlay and **suspend the stop**; when the covering surface
+closes, **resume the same stop and re-query the target's rect** rather than
+trusting the position cached while it was hidden.
+
+Five things this gets wrong if you rush it:
+
+- **Suspension must gate advancement, and it must be the same condition.** A
+  suspended stop that stays armed can be advanced by something the user does in
+  the covering surface — they close it and land on a stop they never saw. Write
+  one predicate and have the render, the event listeners, and any auto-skip timer
+  all read it. Two copies drift.
+- **Containment, not presence.** "A modal is open" is the wrong question: tours
+  legitimately point at fields *inside* sheets for most of a setup flow, so
+  hiding on any open surface blanks the guide through its own walkthrough. Ask
+  whether the topmost surface *contains* the target.
+- **Never gate an arrival trigger.** On a stop that advances when a surface
+  appears (or a route is reached), the thing that appears is often the very thing
+  that covers the anchor — "tap a day" opens a sheet over the calendar it points
+  at. Gate arrival and the stop suspends itself the instant the user obeys it;
+  the tour deadlocks. Gate the *user-event listeners* only.
+- **A missing target is not an occluded one.** "Absent while a surface is open"
+  has two causes you usually cannot distinguish: something covered and unmounted
+  it, or the surface genuinely has no such field in this variant — which is
+  exactly what conditional auto-skip (§7) is for. Treat absence as suspension and
+  you gate that auto-skip and trap the flow on a field that will never exist.
+  Claim only occlusion, which you can establish soundly.
+- **Get the topmost surface from a real open-order registry** — the focus-trap
+  stack, a modal-manager, whatever the app already pushes to as each surface
+  mounts. Scraping the DOM for the last dialog infers stacking from source order
+  and is silently wrong the moment someone reorders a page.
+
+Degrade gracefully: if the target is gone on resume, draw nothing and leave the
+tour alive rather than anchoring to a stale rect or throwing.
+
 ---
 
 ## 5. Navigation is part of the flow
@@ -288,6 +334,15 @@ Cover at minimum:
 - Back-out **restart/resume lands on the correct step** (the §6 write-before-resume
   race).
 - Conditional stops (§7) don't trap when their element never appears.
+- **The overlay HIDES when an off-guide surface opens over its target**, does not
+  advance while it's open, and resumes the same stop when it closes. Assert the
+  *absence*, not just the presence: a suite that only ever checks the chrome is
+  visible after opening an on-guide sheet pins the bug in place — every such spec
+  stays green while the outline floats over unrelated UI. Keep one on-guide case
+  too, or the fix over-corrects into hiding the guide during its own flow.
+- **Give the highlight its own test hook.** Tooltips get selected by role and
+  text; outlines usually get nothing, so nothing can assert where one was drawn.
+  An overlay you cannot select is an overlay you cannot regression-test.
 - **Arriving at a stop and deliberately NOT acting** still leaves a way forward.
   Specs that stop short of the action, and specs that perform it correctly, both
   pass while the skip path is broken — the gap sits between them.
@@ -333,6 +388,11 @@ apply judgment rather than treating them as proven.
 | Skipping on a pre-existing flag alone | Forbidden (§3) |
 | Tooltip covers its target | Move the tooltip, not the highlight (§4) |
 | Two boxes appear | One shared tooltip; kill the bespoke second box (§4) |
+| Outline floats over a sheet the guide didn't open | Target isn't on the topmost surface: hide + suspend, resume on close (§4) |
+| Deciding whether to hide | Does the topmost surface CONTAIN the target — not "is one open" (§4) |
+| Suspended stop | Same condition gates the advance listeners, or the user returns to a stop they never saw (§4) |
+| Stop advances on a surface appearing | Never gate arrival on suspension — it deadlocks (§4) |
+| Target missing while a surface is open | Not occlusion; don't gate conditional auto-skip on it (§4, §7) |
 | Step is on another screen | Nav stop first, advance on arrival (§5) |
 | Already on the target screen | Skip the nav stop (§5) |
 | Resume lands on wrong step | Commit completion signal before resuming (§6) |
