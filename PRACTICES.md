@@ -1,6 +1,6 @@
 ---
 status: active
-updated: 2026-07-25
+updated: 2026-09-30
 ---
 
 # PRACTICES
@@ -24,3 +24,17 @@ Choose the **strongest applicable** prevention:
 Prefer 1 over 2 over 3. A written rule is the fallback, not the default response — a guard that fails loudly beats a paragraph nobody re-reads.
 
 **When the ratchet fires, say so explicitly:** name the recurring class, name the tier chosen, and name why no stronger tier was available. Choosing tier 3 requires justifying why 1 and 2 were genuinely impossible — that justification is the check against writing a rule where a guard would have done.
+
+## Deploy pipeline for public-facing apps
+
+Any repo connected to a production environment follows the three-tier flow: **feature branch -> preview -> main**. Production serves `preview` and `main` only; feature branches never deploy.
+
+**Versioning.** Semver, bumped automatically when a PR merges to `preview`. The version increment travels with the `preview -> main` merge. Bump type comes from the PR title prefix: `feat:` = minor, `breaking:` = major, everything else = patch.
+
+**When to wire this up.** Before the first public deploy — not after. Connecting a repo to a production hosting environment and adding the pipeline are the same step.
+
+**Implementation.** Template files in `templates/deploy-pipeline/`:
+- `version-bump.yml` — GitHub Actions workflow, copy to `.github/workflows/`.
+- `vercel-ignore.md` — the ignore-command pattern for Vercel projects (add to `vercel.json`). Swap this for the equivalent CI/CD gate when the hosting target changes.
+
+Both are reference files to copy and adapt, not drop-in. The branching rule is the invariant; the hosting target is the variable.
